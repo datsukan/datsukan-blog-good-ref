@@ -1,0 +1,60 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types:
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.16.7"
+
+      - name: go get aws lambda library
+        run: go get github.com/aws/aws-lambda-go/lambda
+
+      - name: core update
+        run: go get github.com/datsukan/datsukan-blog-good-core
+
+      - name: go build
+        run: GOOS=linux go build -o datsukan-blog-good-ref main.go
+
+      - name: create zip
+        run: zip datsukan-blog-good-ref.zip datsukan-blog-good-ref
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: upload datsukan-blog-good-ref.zip to s3
+        run: aws s3 cp datsukan-blog-good-ref.zip s3://go-lambda-deploy
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: update Lambda function
+        run: |
+          aws lambda update-function-code --function-name datsukan-blog-good-ref-dynamodb --s3-bucket go-lambda-deploy --s3-key datsukan-blog-good-ref.zip\
+          | jq '.FunctionName, .LastUpdateStatus'
