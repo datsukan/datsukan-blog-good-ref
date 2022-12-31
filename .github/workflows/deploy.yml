@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  repository_dispatch:
-    types:
-      - deploy
 
 jobs:
   build:
@@ -23,8 +20,8 @@ jobs:
       - name: go get aws lambda library
         run: go get github.com/aws/aws-lambda-go/lambda
 
-      - name: core update
-        run: go get github.com/datsukan/datsukan-blog-good-core
+      - name: go mod tidy
+        run: go mod tidy
 
       - name: go build
         run: GOOS=linux go build -o datsukan-blog-good-ref main.go
