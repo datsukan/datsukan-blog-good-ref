@@ -34,7 +34,7 @@ jobs:
           git config --local user.email "s.datsukan@gmail.com"
           git config --local user.name "datsukan"
           git add -A
-          git commit -m "go mod tidy"
+          git commit -m "go module update"
           git pull
           git push origin main
         if: steps.diff.outcome == 'failure'
