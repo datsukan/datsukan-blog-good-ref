@@ -17,8 +17,10 @@ jobs:
         with:
           go-version: "1.19"
 
-      - name: go mod tidy
-        run: go mod tidy
+      - name: go module update
+        run: |
+          go get github.com/datsukan/datsukan-blog-good-core
+          go get github.com/datsukan/datsukan-blog-good-lambda-frame
 
       - name: diff
         id: diff
