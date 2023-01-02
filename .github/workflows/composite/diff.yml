@@ -1,8 +1,10 @@
 name: diff
 description: diff
+
 outputs:
   diff-count:
     value: ${{ steps.diff.outputs.diff-count }}
+
 runs:
   using: composite
   steps:

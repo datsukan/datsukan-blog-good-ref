@@ -23,7 +23,7 @@ jobs:
 
       - name: diff
         id: diff
-        uses: ./.github/workflows/diff
+        uses: ./.github/workflows/composite/diff
 
       - name: git setting & commit & push
         if: steps.diff.outputs.diff-count > 0
