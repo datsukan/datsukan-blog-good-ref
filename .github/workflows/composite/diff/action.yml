@@ -11,5 +11,5 @@ runs:
       run: |
         git fetch origin main
         count=`git diff origin/main HEAD --name-only -- go.mod go.sum | wc -l`
-        echo "::set-output name=diff-count::$(echo $count)"
+        echo "diff-count=$(echo $count)" >> $GITHUB_OUTPUT
       shell: bash
