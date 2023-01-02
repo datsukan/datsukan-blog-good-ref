@@ -19,8 +19,7 @@ jobs:
 
       - name: go module update
         run: |
-          go get github.com/datsukan/datsukan-blog-good-core
-          go get github.com/datsukan/datsukan-blog-good-lambda-frame
+          GOPROXY=direct go get -u ./...
 
       - name: diff
         id: diff
