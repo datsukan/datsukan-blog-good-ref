@@ -10,6 +10,6 @@ runs:
     - id: diff
       run: |
         git fetch origin main
-        count=`git diff origin/main HEAD --name-only -- go.mod go.sum | wc -l`
+        count=`git diff --name-only -- go.mod go.sum | wc -l`
         echo "diff-count=$(echo $count)" >> $GITHUB_OUTPUT
       shell: bash
