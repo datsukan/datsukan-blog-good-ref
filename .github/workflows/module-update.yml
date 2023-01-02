@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Setup Go environment
         uses: actions/setup-go@v3
@@ -27,9 +29,6 @@ jobs:
 
       - name: git setting & commit & push
         if: steps.diff.outputs.diff-count > 0
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           git config --local user.email "s.datsukan@gmail.com"
           git config --local user.name "datsukan"
