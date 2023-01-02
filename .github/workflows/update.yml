@@ -33,8 +33,8 @@ jobs:
         run: |
           git config --local user.email "s.datsukan@gmail.com"
           git config --local user.name "datsukan"
+          git pull
           git add -A
           git commit -m "go module update"
-          git pull
           git push origin main
         if: steps.diff.outcome == 'failure'
