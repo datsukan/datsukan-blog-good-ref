@@ -20,12 +20,18 @@ jobs:
       - name: go mod tidy
         run: go mod tidy
 
+      - name: diff
+        run: |
+          git add -N .
+          git diff --name-only --exit-code
+        continue-on-error: true
+
       - name: git setting
         run: |
           git config --local user.email "s.datsukan@gmail.com"
           git config --local user.name "datsukan"
 
-      - name: commit files
+      - name: commit & push
         run: |
           git add -A
           git commit -m "go mod tidy"
