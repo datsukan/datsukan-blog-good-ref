@@ -3,8 +3,8 @@ module github.com/datsukan/datsukan-blog-good-ref
 go 1.19
 
 require (
-	github.com/datsukan/datsukan-blog-good-core v0.0.0-20221230175819-f4d72f7d0459
-	github.com/datsukan/datsukan-blog-good-lambda-frame v0.0.0-20221230192758-bc9d77c0899b
+	github.com/datsukan/datsukan-blog-good-core v0.0.0-20221231035909-58145de7706a
+	github.com/datsukan/datsukan-blog-good-lambda-frame v0.0.0-20221230193334-2e43a829e97d
 )
 
 require (
